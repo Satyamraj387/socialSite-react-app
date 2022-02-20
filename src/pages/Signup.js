@@ -51,7 +51,7 @@ const Signup = () => {
   };
 
   if (auth.user) {
-    return <Navigate to="/" />;
+    return <Navigate to="/" />
   }
 
   return (

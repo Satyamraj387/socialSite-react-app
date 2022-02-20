@@ -3,6 +3,7 @@ import styles from '../styles/login.module.css';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../hooks';
+import { Navigate } from 'react-router-dom';
 
 
 const Login =()=>{
@@ -11,7 +12,7 @@ const Login =()=>{
     const [password, setPassword]= useState('');
     const [loggingIn, setLoggingIn]= useState(false);
     const auth = useAuth();
-    console.log(auth);
+    // console.log(auth);
    
     
 
@@ -25,7 +26,7 @@ const Login =()=>{
         }
 
         const response = await auth.login(email, password);
-        console.log(response);
+        // console.log(response);
         if(response.success){
         toast.success('Logged in successfully');
         }
@@ -33,6 +34,10 @@ const Login =()=>{
         toast.error(response.message);
         }
         setLoggingIn(false);
+    }
+    
+    if(auth.user){
+        return <Navigate to='/' />
     }
 
     

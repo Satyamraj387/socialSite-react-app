@@ -15,14 +15,11 @@ ReactDOM.render(
       pauseOnHover
       closeOnClick
     />
-
-    <Router>
     <AuthProvider>
-
-      <App />
-      </AuthProvider>
-
-    </Router>
+      <Router>
+        <App />
+      </Router>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
