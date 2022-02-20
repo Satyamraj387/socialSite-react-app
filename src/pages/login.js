@@ -2,32 +2,38 @@ import { useState } from 'react';
 import styles from '../styles/login.module.css';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { login } from '../api';
+import { useAuth } from '../hooks';
 
 
 const Login =()=>{
+
     const [email, setEmail]= useState('');
     const [password, setPassword]= useState('');
     const [loggingIn, setLoggingIn]= useState(false);
+    const auth = useAuth();
+    console.log(auth);
+   
     
 
     const handleSubmit= async(e)=>{
         e.preventDefault();
         setLoggingIn(true);
+        
     
         if(!email || !password){
-            return toast.error('enter both email and password');
-            }
-
-            const response = await login(email, password);
-            if(response.success){
-               toast.success('logged in successfully');
-            }
-            else{
-               toast.error(response.message);
-            }
-            setLoggingIn(false);
+            return toast.error('Enter both email and password');
         }
+
+        const response = await auth.login(email, password);
+        console.log(response);
+        if(response.success){
+        toast.success('Logged in successfully');
+        }
+        else{
+        toast.error(response.message);
+        }
+        setLoggingIn(false);
+    }
 
     
 
@@ -45,7 +51,7 @@ const Login =()=>{
 
            <div className={styles.field}  >
                <button disabled={loggingIn} >
-                   {loggingIn ? 'Logging in ...': 'Log In' }
+                   {loggingIn ? 'verifying ...': 'Log In' }
                </button>
            </div>
        </form>

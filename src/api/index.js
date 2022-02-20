@@ -1,13 +1,12 @@
-import { API_URLS, LOCAL_STORAGE_TOKEN_KEY } from "../utills";
+import { API_URLS, getFormBody, LOCAL_STORAGE_TOKEN_KEY } from "../utills";
 
 const customFetch =async (url, { body, ...customConfig} ) => {
 const token = window.localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
 
 
 const headers = {
-  'content-type': 'application/json',
-  Accept: 'application/json'
-}
+  'Content-Type': 'application/x-www-form-urlencoded',
+};
 
 if(token){
   headers.Authorization = `Bearer ${token}`;
@@ -22,7 +21,7 @@ const config = {
   },
 };
 if(body){
-  config.body = JSON.stringify(body);
+  config.body = getFormBody(body);
 }
 
 try {
@@ -43,7 +42,7 @@ try {
   return {
     message: error.message,
     success: false
-  }
+  };
 }
 
 };
@@ -55,4 +54,11 @@ export const getPosts = (page=1, limit=5) => {
 
 export const login = (email, password)=>{
   return customFetch(API_URLS.login(), {method: 'POST', body: {email, password}})
+};
+
+export const register = async (name, email, password, confirmPassword) => {
+  return customFetch(API_URLS.signup(), {
+    method: 'POST',
+    body: { name, email, password, confirm_password: confirmPassword },
+  });
 };
