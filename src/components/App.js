@@ -1,26 +1,28 @@
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+// import { useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { Home, Login, Settings, Signup, UserProfile } from '../pages';
-import { Loader, Navbar } from './index';
-// import { useAuth } from '../hooks';
+import { Navbar } from './index';
+import Loader from './Loader';
 
-// function PrivateRoute() {
-//   const auth = useAuth;
+function PrivateRoute({children}) {
+  const auth = useAuth();
+  return auth.user? children : <Navigate to='/login' />;
 
-//   return auth.user ? <Outlet /> : <Navigate to="/login" />;
-// }
+}
+
+
 const Page404 = () => {
   return <h1>Page not found</h1>;
 };
 
-function App() {
-  // const auth = useAuth();
 
-  // if(auth.loading){
-  //   return (
-  //     <Loader />
-  //   )
-  // }
+function App() {
+  const auth = useAuth();
+
+  if(auth.loading){
+    return <Loader />
+  }
 
   return (
     <div className="App">
@@ -29,16 +31,8 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Signup />} />
-        {/* <PrivateRoute exact path='/settings' component= {<Settings />} /> */}
-        <Route exact path='/settings' element= {<Settings/>} />
-        <Route exact path='/user/:userId' element={<UserProfile />} />
-        {/* <Route exact path="/settings" element={<PrivateRoute />}>
-          <Route exact path="/settings" element={<Settings />} />
-        </Route>
-
-        <Route exact path="/user/:userId" element={<PrivateRoute />}>
-          <Route exact path="/user/:userId" element={<UserProfile />} />
-        </Route> */}
+        <Route exact path='/settings' element= {<PrivateRoute> <Settings /> </PrivateRoute>} />
+        <Route exact path ='/user/:userId' element={<PrivateRoute> <UserProfile /> </PrivateRoute>} />
         <Route exact path="*" element={<Page404 />}></Route>
       </Routes>
     </div>

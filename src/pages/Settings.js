@@ -2,7 +2,6 @@ import styles from '../styles/settings.module.css';
 import { useAuth } from '../hooks';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { Navigate } from 'react-router-dom';
 
 const Settings = () => {
     const auth =useAuth();
@@ -12,12 +11,6 @@ const Settings = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [savingForm, setSavingForm] = useState(false);
-
- 
-
-  // if (!auth.user) {
-  //     return <Navigate to="/" />;
-  //   }
 
   const clearForm= ()=>{
       setConfirmPassword('');

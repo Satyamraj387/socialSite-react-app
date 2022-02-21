@@ -75,3 +75,15 @@ export const fetchUserProfile = async (userId) => {
     method: 'GET',
   });
 };
+
+export const fetchMyFriends = async () => {
+  return customFetch(API_URLS.friends(), {
+    method: 'GET',
+  });
+};
+
+export const addFriend = (userId)=>{
+  return customFetch(API_URLS.createFriendship(userId), {
+    method: 'POST'
+  })
+}
