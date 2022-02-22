@@ -162,6 +162,15 @@
   border-radius: 4px;
   overflow-y: scroll;
 }
+.friendsList::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.friendsList {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 .friendsList .header {
   border-bottom: 1px solid #e0e0e0;
   font-weight: 600;
@@ -196,9 +205,19 @@
   padding: 0 10px;
 }
 .postsList {
+  height:649px;
+  overflow: scroll;
   flex: 1;
 }
+.postsList::-webkit-scrollbar {
+  display: none;
+}
 
+/* Hide scrollbar for IE, Edge and Firefox */
+.postsList {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 /* Create Post */
 .createPost {

@@ -109,3 +109,20 @@
 .searchResultsRow img {
   height: 27px;
 }
+
+.searchContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.searchContainer {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.leftDiv img{
+  padding: 0vw 3vw;
+  width:6vw;
+  height:4vw;
+  border-radius: 30%;
+}

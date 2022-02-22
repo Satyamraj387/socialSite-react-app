@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks';
+import logo from '../image/logo.png'
 
 import styles from '../styles/navbar.module.css';
 import { searchUsers } from '../api';
@@ -29,8 +30,8 @@ const Navbar = ()=>{
         <div className={styles.nav}>
             <div className={styles.leftDiv}>
                 <Link to='/'>
-                   Ad of your site as image
-                    <img alt='' src='' />
+                   
+                    <img className='logoHai' alt='' src={logo} />
                 </ Link>
             </div>
 
