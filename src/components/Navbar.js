@@ -17,8 +17,7 @@ const Navbar = ()=>{
             <div className={styles.rightNav}>
               {auth.user &&  <div className={styles.user}>
                     <Link to='/settings'>
-                        Image of the user
-                        <img src='' alt='' className={styles.userDp} />
+                        <img src='https://www.sarojhospital.com/images/testimonials/dummy-profile.png' alt='' className={styles.userDp} />
                     </Link>
                     <span>{auth.user.name}</span>
                 </div>}

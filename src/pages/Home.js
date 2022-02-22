@@ -1,38 +1,30 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getPosts } from '../api';
-import { Loader } from '../components';
+import { CreatePost, FriendsList, Loader } from '../components';
+import { useAuth, usePosts } from '../hooks';
 
 import Comment from '../components/comment';
 
 import styles from '../styles/home.module.css';
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const auth = useAuth();
+  const posts= usePosts();
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await getPosts();
-      if (response.success) {
-        setPosts(response.data.posts);
-      }
-      setLoading(false);
-    };
-    fetchPosts();
-  }, []);
 
-  if (loading) {
+
+  if (posts.loading) {
     return <Loader />;
   }
   return (
-    <div className={styles.postList}>
-      {posts.map((post) => (
+     <div className={styles.home}>
+    <div className={styles.postsList}>
+    <CreatePost />
+      {posts.data.map((post) => (
         <div className={styles.postWrapper} key={post.user._id}>
           <div className={styles.postHeader}>
             <div className={styles.postAvatar}>
               <img
-                src="https://cdn-icons.flaticon.com/png/128/668/premium/668709.png?token=exp=1645191083~hmac=4675f3f9a4a7138f3e308c8d75754e07"
+                src="https://www.sarojhospital.com/images/testimonials/dummy-profile.png"
                 alt=""
               />
 
@@ -55,7 +47,7 @@ const Home = () => {
                   src="https://cdn-icons-png.flaticon.com/128/126/126473.png"
                   alt="like-icon"
                 />
-                <span>5</span>
+                <span>{post.likes.length}</span>
               </div>
 
               <div className={styles.postCommentIcon}>
@@ -79,6 +71,8 @@ const Home = () => {
         </div>
       ))}
     </div>
+     {auth.user && <FriendsList />} 
+     </div> 
   );
 };
 export default Home;

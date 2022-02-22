@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import jwt from 'jwt-decode';
-import { AuthContext } from '../providers/AuthProvider';
-import { editProfile, login as userLogin, register,fetchMyFriends } from '../api';
+import { AuthContext, PostsContext } from '../providers';
+import { editProfile, login as userLogin, register,fetchMyFriends, getPosts } from '../api';
 import {
   setItemInLocalStorage,
   LOCAL_STORAGE_TOKEN_KEY,
@@ -113,6 +113,12 @@ export const useProvideAuth = () => {
         friends: [...user.friends, friend]
       })
       return;
+    }else{
+      const newFriends= user.friends.filter((f)=>{ return f.to_user._id !== friend.to_user._id});
+      setUser({
+        ...user,
+        friends: newFriends
+      })
     }
 
   }
@@ -127,3 +133,37 @@ export const useProvideAuth = () => {
     updateUserFriends
   };
 };
+
+
+export const usePosts = () => {
+  return useContext(PostsContext);
+};
+
+
+export const useProvidePosts = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await getPosts();
+      if (response.success) {
+        setPosts(response.data.posts);
+      }
+      setLoading(false);
+    };
+    fetchPosts();
+  }, []);
+
+  const addPostToState=(post)=>{
+    const newPosts = [post, ...posts];
+    setPosts(newPosts);
+
+}
+
+return {
+  data: posts,
+  loading,
+  addPostToState
+}
+}

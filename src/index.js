@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './styles/index.css';
 import { App } from './components';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthProvider } from './providers/AuthProvider';
+import { AuthProvider, PostsProvider } from './providers';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,9 +16,11 @@ ReactDOM.render(
       closeOnClick
     />
     <AuthProvider>
+    <PostsProvider>
       <Router>
         <App />
       </Router>
+      </PostsProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')

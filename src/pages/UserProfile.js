@@ -6,7 +6,7 @@ import { useAuth } from '../hooks';
 import { Navigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Loader } from '../components';
-import { addFriend, fetchUserProfile } from '../api';
+import { addFriend, fetchUserProfile, removeFriend } from '../api';
 
 const UserProfile = () => {
   const auth= useAuth();
@@ -73,7 +73,25 @@ const UserProfile = () => {
 
      setRequest(false);
    }
-   const handleRemoveFriend = async ()=>{};
+
+
+   const handleRemoveFriend = async ()=>{
+    setRequest(true);
+    const response = await removeFriend(userId);
+    if(response.success){
+      const friendship = auth.user.friends.filter((friend)=>{return friend.to_user._id===userId});
+
+      auth.updateUserFriends(false, friendship[0]);
+
+      toast.success(`${user.name} is  removed as your friend`)
+    }
+    else{
+      toast.error(response.message)
+    }
+
+    setRequest(false);
+  }
+   
 
 
   if(loading){
