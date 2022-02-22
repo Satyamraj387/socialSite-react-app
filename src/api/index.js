@@ -100,3 +100,22 @@ export const addPost = (content)=>{
     body: {content}
   })
 }
+export const createComment = (content, postId)=>{
+  return customFetch(API_URLS.comment(), {
+    method: 'POST',
+    body: {post_id: postId, content}
+  })
+}
+
+
+export const toggleLike = (itemType, itemId)=>{
+  return customFetch(API_URLS.toggleLike(itemId, itemType), {
+    method: 'POST',
+  })
+};
+
+export const searchUsers = (text)=>{
+  return customFetch(API_URLS.searchUsers(text), {
+    method: 'GET',
+  })
+};

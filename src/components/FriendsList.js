@@ -18,7 +18,7 @@ const FriendsList = () => {
       {friends &&
         friends.map((friend) => (
           <div key={`friend-${friend._id}`}>
-            <Link className={styles.friendsItem} to={`/user/${friend._id}`}>
+            <Link className={styles.friendsItem} to={`/user/${friend.to_user._id}`}>
               <div className={styles.friendsImg}>
                 <img
                   src="https://www.sarojhospital.com/images/testimonials/dummy-profile.png"

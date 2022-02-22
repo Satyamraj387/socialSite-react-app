@@ -148,6 +148,7 @@ export const useProvidePosts = () => {
     const fetchPosts = async () => {
       const response = await getPosts();
       if (response.success) {
+        console.log('try',response.data);
         setPosts(response.data.posts);
       }
       setLoading(false);
@@ -161,9 +162,48 @@ export const useProvidePosts = () => {
 
 }
 
+
+const addComment = (comment, postId) => {
+  const newPosts = posts.map((post) => {
+    if (post._id === postId) {
+      return { ...post, comments: [...post.comments, comment] };
+    }
+    return post;
+  });
+
+  setPosts(newPosts);
+};
+const addLike = (postId,userId)=>{
+  const newPosts=posts.map((post)=>{
+    if(post._id===postId){
+      post.likes.push(userId);
+      return post;
+    }
+    return post;
+  });
+  setPosts(newPosts);
+}
+
+const removeLike = (postId,userId)=>{
+  const newPosts=posts.map((post)=>{
+    if(post._id===postId){
+      let newlikes=post.likes.filter((a)=>a!==userId);
+      post.likes= newlikes;
+      return post;
+    }
+    return post;
+  });
+  setPosts(newPosts);
+}
+
+
+
 return {
   data: posts,
   loading,
-  addPostToState
+  addPostToState,
+  addComment,
+  addLike,
+  removeLike
 }
 }

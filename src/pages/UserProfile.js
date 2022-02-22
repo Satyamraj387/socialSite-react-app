@@ -103,7 +103,7 @@ const UserProfile = () => {
     <div className={styles.settings}>
       <div className={styles.imgContainer}>
         <img
-          src=""
+          src="https://www.sarojhospital.com/images/testimonials/dummy-profile.png"
           alt={user.name}
         />
         
